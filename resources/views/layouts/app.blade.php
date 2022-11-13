@@ -25,28 +25,28 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body class="sb-nav-fixed">
-    <div id="app">
-        @auth()
+<div id="app">
+    @auth()
         @include('layouts.nav')
-        @endauth
+    @endauth
 
-        <div id="layoutSidenav" class="py-4">
-            @include('layouts.side_nav')
-            <div id="layoutSidenav_content">
-                <main>
-                    @yield('content')
-                </main>
-            </div>
+    <div id="layoutSidenav" class="py-4">
+        @include('layouts.side_nav')
+        <div id="layoutSidenav_content" @auth() style="top: 56px;" @endauth>
+            <main>
+                @yield('content')
+            </main>
         </div>
     </div>
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
-    <script src="{{ asset('js/scripts.js') }}"></script>
-    <script src="{{ asset('js/chart.min.js') }}"></script>
-    <script src="{{ asset('js/chart-area-demo.js') }}"></script>
-    <script src="{{ asset('js/chart-bar-demo.js') }}"></script>
-    <script src="{{ asset('js/moment.min.js') }}"></script>
-    <script src="{{ asset('js/weather.js') }}"></script>
+</div>
+<script src="{{ asset('js/jquery.min.js') }}"></script>
+<script src="{{ asset('js/scripts.js') }}"></script>
+<script src="{{ asset('js/chart.min.js') }}"></script>
+<script src="{{ asset('js/chart-area-demo.js') }}"></script>
+<script src="{{ asset('js/chart-bar-demo.js') }}"></script>
+<script src="{{ asset('js/moment.min.js') }}"></script>
+<script src="{{ asset('js/weather.js') }}"></script>
 
-    @yield('scripts')
+@yield('scripts')
 </body>
 </html>

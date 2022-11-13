@@ -97,12 +97,21 @@
                 Barangay Information
             </div>
             <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        Legend:
+                        <small><span class="legend bg-danger"></span> Full</small>&emsp;
+                        <small><span class="legend bg-success"></span> Available</small>
+                    </div>
+                    <a href="#" class="btn btn-outline-secondary btn-sm">Generate Report</a>
+                </div>
+                <hr />
                 <table class="table table-dash table-hover">
                     <thead>
                         <tr>
                             <th>Barangay</th>
                             <th>Status</th>
-                            <th>Number of Evacuees</th>
+                            <th>No. of Evacuees / Capacity</th>
                             <th width="80">Males</th>
                             <th width="80">Females</th>
                             <th width="80">PWDs</th>
@@ -113,7 +122,7 @@
                         <tr>
                             <td>Anonang</td>
                             <td>Available</td>
-                            <td>204/9450</td>
+                            <td>240/9450</td>
                             <td>120</td>
                             <td>120</td>
                             <td>10</td>

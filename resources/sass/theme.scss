@@ -11393,7 +11393,7 @@ body {
 }
 .sb-nav-fixed #layoutSidenav #layoutSidenav_content {
   padding-left: 225px;
-  top: 56px;
+  //top: 56px;
 }
 
 #layoutError {
@@ -11702,4 +11702,9 @@ body {
 
 .bg-cloud {
   background-image: url("/img/clouds.jpeg");
+}
+.legend {
+  width: 14px;
+  display: inline-block;
+  height: 14px;
 }
