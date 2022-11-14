@@ -2,10 +2,12 @@
 
 @section('content')
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Dashboard</h1>
-        <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item active">Dashboard</li>
-        </ol>
+        @auth()
+            <h1 class="mt-4">Dashboard</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+        @endauth
         <div class="row">
             <div class="col-xl-3 col-md-6">
                 <div class="card bg-primary text-white mb-4">
@@ -44,6 +46,7 @@
                 </div>
             </div>
         </div>
+        @include('plugins.weather-updates')
         <div class="row">
             <div class="col-md-6">
                 <div class="card mb-4">
@@ -88,59 +91,60 @@
                 </div>
             </div>
         </div>
-
-        @include('plugins.weather-updates')
-
         <div class="card mb-4">
-            <div class="card-header">
-                <i class="fas fa-house me-1"></i>
-                Barangay Information
-            </div>
-            <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        Legend:
-                        <small><span class="legend bg-danger"></span> Full</small>&emsp;
-                        <small><span class="legend bg-success"></span> Available</small>
-                    </div>
-                    <a href="#" class="btn btn-outline-secondary btn-sm">Generate Report</a>
+                <div class="card-header">
+                    <i class="fas fa-house me-1"></i>
+                    Barangay Information
                 </div>
-                <hr />
-                <table class="table table-dash table-hover">
-                    <thead>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            Legend:
+                            <small><span class="legend bg-danger"></span> Full</small>&emsp;
+                            <small><span class="legend bg-success"></span> Available</small>
+                        </div>
+                        @auth()
+                            <a href="#" class="btn btn-outline-secondary btn-sm">Generate Report</a>
+                        @endauth
+                    </div>
+                    <hr />
+                    <table class="table table-dash table-hover">
+                        <thead>
                         <tr>
                             <th>Barangay</th>
-                            <th>Status</th>
-                            <th>No. of Evacuees / Capacity</th>
-                            <th width="80">Males</th>
-                            <th width="80">Females</th>
-                            <th width="80">PWDs</th>
-                            <th width="130"></th>
+                            <th width="240">No. of Evacuees / Capacity</th>
+                            <th width="100">Males</th>
+                            <th width="100">Females</th>
+                            <th width="100">PWDs</th>
+                            @auth()
+                                <th width="130"></th>
+                            @endauth
                         </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
                         <tr>
-                            <td>Anonang</td>
-                            <td>Available</td>
+                            <td><span class="legend bg-danger"></span> Anonang</td>
                             <td>240/9450</td>
                             <td>120</td>
                             <td>120</td>
                             <td>10</td>
-                            <td>
-                                <a href="#" class="btn btn-sm btn-secondary">
-                                    <i class="fa fa-eye"></i>
-                                </a>
-                                <a href="#" class="btn btn-sm btn-success text-white">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                <a href="#" class="btn btn-sm btn-danger text-white">
-                                    <i class="fa fa-trash"></i>
-                                </a>
-                            </td>
+                            @auth()
+                                <td>
+                                    <a href="#" class="btn btn-sm btn-secondary">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-sm btn-success text-white">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-sm btn-danger text-white">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            @endauth
                         </tr>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
     </div>
 @endsection

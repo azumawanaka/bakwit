@@ -1,6 +1,12 @@
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
+    <a class="navbar-brand ps-3" href="/">
+        <svg class="" width="50" height="50" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; vertical-align: middle;">
+            <path d="M918.187 180.907l-303.787 662.187h102.4l303.787-662.187h-102.4zM614.4 180.907h-102.4l-153.6 354.987h102.4l153.6-354.987zM716.8 180.907l-307.2 662.187h102.4l303.787-662.187h-98.987zM307.2 180.907l-303.787 662.187h102.4l303.787-662.187h-102.4z" style="fill: rgb(255, 255, 255);"></path>
+        </svg>
+        BAKWIT
+    </a>
+    @auth()
     <!-- Sidebar Toggle-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
     <!-- Navbar Search-->
@@ -16,7 +22,6 @@
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="#!">Settings</a></li>
-                <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                 <li><hr class="dropdown-divider" /></li>
                 <li><a class="dropdown-item" href="#"
                        onclick="event.preventDefault();
@@ -24,6 +29,23 @@
             </ul>
         </li>
     </ul>
+    @else
+    <!-- Navbar-->
+    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+        <li class="nav-item">
+            <a href="" class="nav-link text-white">Home</a>
+        </li>
+        <li class="nav-item">
+            <a href="" class="nav-link">Barangays</a>
+        </li>
+        <li class="nav-item">
+            <a href="" class="nav-link">Calamity</a>
+        </li>
+        <li class="nav-item">
+            <a href="" class="nav-link">GIS</a>
+        </li>
+    </ul>
+    @endauth
 </nav>
 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
     @csrf
