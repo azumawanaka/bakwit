@@ -71,11 +71,13 @@
                     let marker = new google.maps.Marker({
                         position: myLatlng,
                         map: map,
-                        title: markers[i].name
+                        title: `Brgy. ${markers[i].name}`,
+                        icon: '../img/e-marker.png'
                     });
                     (function (marker, data) {
-                        google.maps.event.addListener(marker, "mouseover", function (e) {
-                            infoWindow.setContent(data.name);
+                        google.maps.event.addListener(marker, "click", function (e) {
+                            let info = `Brgy. ${data.name}`
+                            infoWindow.setContent(info);
                             infoWindow.open(map, marker);
                         });
                     })(marker, data);
