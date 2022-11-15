@@ -7,7 +7,6 @@
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item active">Dashboard</li>
             </ol>
-        @endauth
         <div class="row">
             <div class="col-xl-3 col-md-6">
                 <div class="card bg-primary text-white mb-4">
@@ -46,7 +45,17 @@
                 </div>
             </div>
         </div>
+        @endauth
         @include('plugins.weather-updates')
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-building me-1"></i>
+                Barangays Evacuation Centers
+            </div>
+            <div class="card-body">
+                <div id="map" class="mb-4"></div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-6">
                 <div class="card mb-4">
@@ -55,26 +64,26 @@
                         Emergency Numbers
                     </div>
                     <div class="card-body">
-                        <ul class="list-unstyled">
-                            <li>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
                                 <strong>BFP</strong> - (038) 513 9463
                             </li>
-                            <li>
+                            <li class="list-group-item">
                                 <strong>PNP</strong> - 09985986407
                             </li>
-                            <li>
+                            <li class="list-group-item">
                                 <strong>NDRRMC</strong> - 513-9484
                             </li>
-                            <li>
+                            <li class="list-group-item">
                                 <strong>MHO</strong> - 513-9404
                             </li>
-                            <li>
+                            <li class="list-group-item">
                                 <strong>NPD</strong> - 09778254479
                             </li>
-                            <li>
+                            <li class="list-group-item">
                                 <strong>MDRRMO</strong> - 09982812990
                             </li>
-                            <li>
+                            <li class="list-group-item">
                                 <strong>AMBULANCE</strong> - 09507025923
                             </li>
                         </ul>
@@ -147,4 +156,10 @@
                 </div>
             </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/chart.min.js') }}"></script>
+    <script src="{{ asset('js/chart-area-demo.js') }}"></script>
+    <script src="{{ asset('js/multi-gmap.js') }}"></script>
 @endsection

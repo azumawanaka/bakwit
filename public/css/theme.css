@@ -11037,3 +11037,7 @@ body {
   width: 300px !important;
   height: 120px !important;
 }
+
+.w-14-rem {
+  width: 14rem;
+}

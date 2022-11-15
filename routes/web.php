@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\EvacuationCenterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +26,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
 
 Route::get('/barangays/all/locations', [App\Http\Controllers\BarangayController::class, 'fetchLocations'])
     ->name('barangays.fetch-locations');
+
+Route::middleware('auth')->group(function () {
+    Route::resource('bdrrmo', EvacuationCenterController::class);
+});
