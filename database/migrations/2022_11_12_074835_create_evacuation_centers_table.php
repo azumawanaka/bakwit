@@ -18,6 +18,7 @@ class CreateEvacuationCentersTable extends Migration
             $table->integer('evacuation_center_type_id');
             $table->integer('barangay_id');
             $table->integer('max_capacity')->default(0);
+            $table->boolean('is_evacuation_center_full')->default(false);
             $table->timestamps();
         });
     }

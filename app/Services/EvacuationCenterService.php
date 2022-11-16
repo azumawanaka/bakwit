@@ -3,9 +3,33 @@
 namespace App\Services;
 
 use App\Models\EvacuationCenter;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Model;
 
-/** @property EvacuationCenter $model */
-class EvacuationCenterService
+class EvacuationCenterService extends Model
 {
+    /**
+     * @param EvacuationCenter $model
+     */
+    public function __construct(EvacuationCenter $model)
+    {
+        $this->model = $model;
+    }
 
+    public function store($request)
+    {
+        return $this->model->create([
+            'evacuation_center_type_id' => intVal($request['evacuation_center_type_id']),
+            'barangay_id' => intVal($request['barangay_id']),
+            'max_capacity' => $request['max_capacity'],
+        ]);
+    }
+
+    /**
+     * @return LengthAwarePaginator
+     */
+    public function centers(): LengthAwarePaginator
+    {
+        return $this->model->with(['evacuationCenterType', 'barangay', 'evacuees'])->paginate();
+    }
 }

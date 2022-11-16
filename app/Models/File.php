@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Barangay extends Model
+class File extends Model
 {
     use HasFactory;
 
@@ -16,16 +15,8 @@ class Barangay extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'evacuation_center_id',
         'name',
-        'lat',
-        'long',
+        'path',
     ];
-
-    /**
-     * @return HasOne
-     */
-    public function evacuationCenter(): HasOne
-    {
-        return $this->hasOne(EvacuationCenter::class);
-    }
 }

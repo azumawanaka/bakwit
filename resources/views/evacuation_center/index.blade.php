@@ -10,9 +10,12 @@
 
         <div class="table-responsive">
             <div class="d-flex justify-content-between">
-                <a href="javascript:void(0)" class="btn btn-md btn-outline-secondary mb-2">
+                <button type="button"
+                   class="btn btn-md btn-outline-primary mb-2"
+                   data-toggle="modal"
+                   data-target="#evacuationCenterModal">
                     <i class="fas fa-plus"></i> Add Evacuation Center
-                </a>
+                </button>
                 <form class="d-none d-md-inline-block">
                     <div class="input-group">
                         <input class="form-control"
@@ -25,32 +28,28 @@
                 </form>
             </div>
             <hr />
-            <table class="table table-dashed">
-                <thead>
-                    <tr>
-                        <th>Barangay</th>
-                        <th>Evacuation Center Type</th>
-                        <th>Maximum Capacity</th>
-                        <th>Families</th>
-                        <th>Males</th>
-                        <th>Females</th>
-                        <th>PWDs</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Anonang</td>
-                        <td>Multi-purpose Center</td>
-                        <td>50</td>
-                        <td>15</td>
-                        <td>10</td>
-                        <td>20</td>
-                        <td>2</td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+
+            @include('evacuation_center.tables.brgy-evacuation')
+
         </div>
     </div>
+
+    @include('evacuation_center.modals.new-evacuation-center')
+
+@endsection
+
+@section('scripts')
+  <script>
+      $(document).ready(function () {
+
+          $('.numberonly').keypress(function (e) {
+              var charCode = (e.which) ? e.which : event.keyCode
+              if (String.fromCharCode(charCode).match(/[^0-9]/g)) {
+                  return false
+              }
+              return true
+          })
+
+      })
+  </script>
 @endsection
