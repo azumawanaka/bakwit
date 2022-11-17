@@ -54,8 +54,8 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="file">Upload Photos</label>
-                        <input type="file" name="file[]" id="file" class="form-control" multiple>
+                        <label for="files">Upload Photos</label>
+                        <input type="file" name="files[]" id="files" class="form-control" multiple>
                     </div>
 {{--                    <div class="form-check mb-3">--}}
 {{--                        <input class="form-check-input"--}}

@@ -16,6 +16,10 @@ class EvacuationCenterService extends Model
         $this->model = $model;
     }
 
+    /**
+     * @param $request
+     * @return mixed
+     */
     public function store($request)
     {
         return $this->model->create([
@@ -30,6 +34,12 @@ class EvacuationCenterService extends Model
      */
     public function centers(): LengthAwarePaginator
     {
-        return $this->model->with(['evacuationCenterType', 'barangay', 'evacuees'])->paginate();
+        return $this->model->with([
+                'evacuationCenterType',
+                'barangay',
+                'evacuee',
+                'files'
+            ])
+            ->paginate();
     }
 }

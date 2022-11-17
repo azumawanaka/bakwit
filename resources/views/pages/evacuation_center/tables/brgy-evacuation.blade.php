@@ -8,6 +8,7 @@
     <thead>
         <tr>
             <th>Barangay</th>
+{{--            <th>Photos</th>--}}
             <th>Evacuation Center Type</th>
             <th>Maximum Capacity</th>
             <th>Families</th>
@@ -15,26 +16,36 @@
             <th>Females</th>
             <th>PWDs</th>
             <th>Status</th>
-            <th></th>
+            <th>Options</th>
         </tr>
     </thead>
     <tbody>
     @foreach($evacuationCenters as $center)
         <tr>
             <td>{{ $center->barangay->name }}</td>
+{{--            <td>--}}
+{{--                @foreach($center->files as $file)--}}
+{{--                    <img src='{{ asset($file->path) }}' width="50">--}}
+{{--                @endforeach--}}
+{{--            </td>--}}
             <td>{{ $center->evacuationCenterType->name }}</td>
             <td>{{ $center->max_capacity }}</td>
-            <td>{!! !isset($center->evacuees->family_count) ? '<span class="text-danger">0</span>' : $center->evacuees->family_count !!}</td>
-            <td>{!! !isset($center->evacuees->family_count) ? '<span class="text-danger">0</span>' : $center->evacuees->male_count !!}</td>
-            <td>{!! !isset($center->evacuees->family_count) ? '<span class="text-danger">0</span>' : $center->evacuees->female_count !!}</td>
-            <td>{!! !isset($center->evacuees->family_count) ? '<span class="text-danger">0</span>' : $center->evacuees->pwd_count !!}</td>
+            <td>{{ isset($center->evacuee) != null ? $center->evacuee->family_count : 0 }}</td>
+            <td>{{ isset($center->evacuee) != null ? $center->evacuee->male_count : 0 }}</td>
+            <td>{{ isset($center->evacuee) != null ? $center->evacuee->female_count : 0 }}</td>
+            <td>{{ isset($center->evacuee) != null ? $center->evacuee->pwd_count : 0 }}</td>
             <td>
                 <span class="legend bg-{{ $center->is_evacuation_center_full ? 'danger' : 'success' }}"></span></td>
             <td>
                 <a href="#" class="btn btn-sm btn-outline-primary">
                     <i class="fas fa-eye"></i>
                 </a>
-                <a href="#" class="btn btn-sm btn-outline-success">
+                <a href="#" class="btn btn-sm btn-outline-success edit-evacuation-center"
+                   data-center="{{ $center->id }}"
+                   data-get-url="{{ route('bdrrmo.center', ['bdrrmo' => $center]) }}"
+                   data-update-url="{{ route('bdrrmo.update', ['bdrrmo' => $center]) }}"
+                   data-toggle="modal"
+                   data-target="#editEvacuationCenterModal">
                     <i class="fas fa-pencil"></i>
                 </a>
                 <a href="#" class="btn btn-sm btn-outline-danger">
@@ -45,3 +56,6 @@
     @endforeach
     </tbody>
 </table>
+<div class="d-flex justify-content-end mt-5">
+    {{ $evacuationCenters->links() }}
+</div>

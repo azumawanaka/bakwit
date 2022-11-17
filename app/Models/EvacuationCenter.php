@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class EvacuationCenter extends Model
 {
@@ -22,6 +23,11 @@ class EvacuationCenter extends Model
         'max_capacity',
         'is_evacuation_center_full',
     ];
+
+    /**
+     * @var int
+     */
+    protected $perPage = 10;
 
     /**
      * @var string[]
@@ -47,10 +53,18 @@ class EvacuationCenter extends Model
     }
 
     /**
+     * @return HasOne
+     */
+    public function evacuee(): HasOne
+    {
+        return $this->hasOne(Evacuee::class);
+    }
+
+    /**
      * @return HasMany
      */
-    public function evacuees(): HasMany
+    public function files(): HasMany
     {
-        return $this->hasMany(Evacuee::class);
+        return $this->hasMany(File::class);
     }
 }

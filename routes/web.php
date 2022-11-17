@@ -28,5 +28,7 @@ Route::get('/barangays/all/locations', [App\Http\Controllers\BarangayController:
     ->name('barangays.fetch-locations');
 
 Route::middleware('auth')->group(function () {
+    Route::get('bdrrmo/{bdrrmo}/center', [EvacuationCenterController::class, 'getCenter'])
+        ->name('bdrrmo.center');
     Route::resource('bdrrmo', EvacuationCenterController::class);
 });
