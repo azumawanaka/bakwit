@@ -6,7 +6,6 @@ use App\Models\Barangay;
 use App\Models\EvacuationCenter;
 use App\Models\EvacuationCenterType;
 use App\Models\Evacuee;
-use App\Models\File;
 use App\Services\EvacuationCenterService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -29,17 +28,18 @@ class EvacuationCenterController extends Controller
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
         $barangayIds = [];
-        $storedBarangay = EvacuationCenter::select('id')->get();
+        $storedBarangay = EvacuationCenter::select('barangay_id')->get();
         foreach ($storedBarangay as $brgy) {
-            $barangayIds[] = $brgy->id;
+            $barangayIds[] = $brgy->barangay_id;
         }
 
-        $evacuationCenters = $this->evacuationCenterService->centers();
+        $evacuationCenters = $this->evacuationCenterService->centers($request);
         $barangays = Barangay::whereNotIn('id', $barangayIds)->orderBy('name', 'asc')->get();
         return view('pages.evacuation_center.index', [
             'barangays' => $barangays,
@@ -58,24 +58,30 @@ class EvacuationCenterController extends Controller
         try {
             $evacuationCenter = $this->evacuationCenterService->store($request->all());
             if($request->hasFile('files')) {
-                $allowedfileExtension = ['pdf', 'jpg', 'png', 'jpeg'];
-                $files = $request->file('files');
-                foreach ($files as $file) {
-                    $filename = $file->getClientOriginalName();
-                    $extension = $file->getClientOriginalExtension();
-                    $check = in_array($extension, $allowedfileExtension);
-
-                    $filePath = $file->storePubliclyAs('public_uploads', $filename, 'public');
-                    $evacuationCenter->files()->create([
-                        'name' => $filename,
-                        'path' => $filePath,
-                    ]);
-                }
+                $this->storeFiles($evacuationCenter, $request);
             }
         } catch (\Exception $exception) {
             return redirect()->back()->with('msg', 'Error when saving. Please try again or contact administrator.');
         }
         return redirect()->back()->with('msg', 'Evacuation Center is added!');
+    }
+
+    /**
+     * @param $evacuationCenter
+     * @param $request
+     * @return void
+     */
+    private function storeFiles($evacuationCenter, $request): void
+    {
+        $files = $request->file('files');
+        foreach ($files as $file) {
+            $filename = $file->getClientOriginalName();
+            $filePath = $file->storePubliclyAs('public_uploads/'.$evacuationCenter->id, $filename, 'public');
+            $evacuationCenter->files()->create([
+                'name' => $filename,
+                'path' => $filePath,
+            ]);
+        }
     }
 
     /**
@@ -109,33 +115,76 @@ class EvacuationCenterController extends Controller
         ]);
 
         if ($bdrrmo->evacuee()->count() > 0) {
+            $isFull = ($request->male_count + $request->female_count) == $request->max_capacity ? true : false;
+            $bdrrmo->update([
+                'evacuation_center_type_id' => $request->evacuation_center_type_id,
+                'is_evacuation_center_full' => $isFull,
+            ]);
             $bdrrmo->evacuee()->update($evacuees);
         } else {
-            Evacuee::create([
-                'evacuation_center_id' => $bdrrmo->id,
-                'family_count' => $evacuees['family_count'],
-                'male_count' => $evacuees['male_count'],
-                'female_count' => $evacuees['female_count'],
-                'pwd_count' => $evacuees['pwd_count'],
-            ]);
+            $this->storeEvacueesCounts($bdrrmo->id, $evacuees);
+        }
+
+        if($request->hasFile('files')) {
+            $this->deleteFileDirectory($bdrrmo->id);
+            $this->updateFiles($bdrrmo, $request);
         }
 
         return redirect()->back()->with('msg', 'Evacuation Center is modified!');
+    }
 
-//        if($request->hasFile('files')) {
-//            $allowedfileExtension = ['pdf', 'jpg', 'png', 'jpeg'];
-//            $files = $request->file('files');
-//            foreach ($files as $file) {
-//                $filename = $file->getClientOriginalName();
-//                $extension = $file->getClientOriginalExtension();
-//                $check = in_array($extension, $allowedfileExtension);
-//
-//                $filePath = $file->storePubliclyAs('public_uploads', $filename, 'public');
-//                $evacuationCenter->files()->create([
-//                    'name' => $filename,
-//                    'path' => $filePath,
-//                ]);
-//            }
-//        }
+    /**
+     * @param $evacuationId
+     * @param $evacuees
+     * @return void
+     */
+    private function storeEvacueesCounts($evacuationId, $evacuees): void
+    {
+        Evacuee::create([
+            'evacuation_center_id' => $evacuationId,
+            'family_count' => $evacuees['family_count'],
+            'male_count' => $evacuees['male_count'],
+            'female_count' => $evacuees['female_count'],
+            'pwd_count' => $evacuees['pwd_count'],
+        ]);
+    }
+
+    /**
+     * @param $evacuation
+     * @param $request
+     * @return void
+     */
+    private function updateFiles($evacuation, $request): void
+    {
+        $files = $request->file('files');
+        foreach ($files as $file) {
+            $filename = $file->getClientOriginalName();
+            $filePath = $file->storePubliclyAs('public_uploads/'.$evacuation->id, $filename, 'public');
+            $evacuation->files()->update([
+                'name' => $filename,
+                'path' => $filePath,
+            ]);
+        }
+    }
+
+    /**
+     * @param EvacuationCenter $bdrrmo
+     * @return RedirectResponse
+     */
+    public function destroy(EvacuationCenter $bdrrmo)
+    {
+        $this->deleteFileDirectory($bdrrmo->id);
+        $bdrrmo->delete();
+        return redirect()->back()->with('msg', 'Evacuation center successfully deleted.');
+    }
+
+    /**
+     * @param $evacuationId
+     * @return void
+     */
+    private function deleteFileDirectory($evacuationId): void
+    {
+        $filePath = '/public/public_uploads/'.$evacuationId;
+        Storage::deleteDirectory($filePath);
     }
 }

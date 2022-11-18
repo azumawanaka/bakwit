@@ -20,7 +20,8 @@
         </tr>
     </thead>
     <tbody>
-    @foreach($evacuationCenters as $center)
+    @if($evacuationCenters->count() > 0)
+        @foreach($evacuationCenters as $center)
         <tr>
             <td>{{ $center->barangay->name }}</td>
 {{--            <td>--}}
@@ -48,12 +49,20 @@
                    data-target="#editEvacuationCenterModal">
                     <i class="fas fa-pencil"></i>
                 </a>
-                <a href="#" class="btn btn-sm btn-outline-danger">
+                <a href="#" class="btn btn-sm btn-outline-danger confirmModalDelete"
+                   data-url="{{ route('bdrrmo.destroy', ['bdrrmo' => $center]) }}"
+                   data-toggle="modal"
+                   data-target="#confirmDelete">
                     <i class="fas fa-trash"></i>
                 </a>
             </td>
         </tr>
     @endforeach
+    @else
+        <tr>
+            <td colspan="9" class="text-muted text-center">No Record</td>
+        </tr>
+    @endif
     </tbody>
 </table>
 <div class="d-flex justify-content-end mt-5">

@@ -32,7 +32,7 @@ class EvacuationCenterService extends Model
     /**
      * @return LengthAwarePaginator
      */
-    public function centers(): LengthAwarePaginator
+    public function centers($request): LengthAwarePaginator
     {
         return $this->model->with([
                 'evacuationCenterType',
@@ -40,6 +40,7 @@ class EvacuationCenterService extends Model
                 'evacuee',
                 'files'
             ])
+            ->orderBy('updated_at', 'desc')
             ->paginate();
     }
 }

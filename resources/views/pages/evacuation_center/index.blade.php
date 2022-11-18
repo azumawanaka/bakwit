@@ -16,17 +16,24 @@
                         data-target="#evacuationCenterModal">
                     <i class="fas fa-plus"></i> Add Evacuation Center
                 </button>
-                <form class="d-none d-md-inline-block">
-                    <div class="input-group">
-                        <input class="form-control"
-                               type="text"
-                               placeholder="Search for..."
-                               aria-label="Search for..."
-                               aria-describedby="btnESearch">
-                        <button class="btn btn-primary" id="btnESearch" type="button"><i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </form>
+{{--                <form method="get" class="d-flex align-items-center gap-2">--}}
+{{--                    <div class="input-group d-flex align-items-center">--}}
+{{--                        <label class="mr-1 mb-0">Search By:</label>--}}
+{{--                        <select class="form-control" name="search_for">--}}
+{{--                            <option value="barangay">Barangay</option>--}}
+{{--                            <option value="evacuation_center_type">Evacuation Center Type</option>--}}
+{{--                        </select>--}}
+{{--                    </div>--}}
+{{--                    <div class="input-group">--}}
+{{--                        <input class="form-control"--}}
+{{--                               type="text"--}}
+{{--                               name="keyword"--}}
+{{--                               placeholder=""--}}
+{{--                               aria-describedby="btnESearch">--}}
+{{--                            <button class="btn btn-primary" id="btnESearch" type="submit"><i class="fas fa-search"></i>--}}
+{{--                        </button>--}}
+{{--                    </div>--}}
+{{--                </form>--}}
             </div>
             @if (session('msg'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -45,6 +52,7 @@
 
     @include('pages.evacuation_center.modals.new-evacuation-center')
     @include('pages.evacuation_center.modals.edit-evacuation-center')
+    @include('pages.evacuation_center.modals.confirm-delete')
 
 @endsection
 
@@ -75,7 +83,10 @@
                     let data = response.data
                     console.log(data)
                     $('#form-edit').attr('action', updateUrl)
-                    $('#update_barangay_id').val(data.barangay).change()
+                    $('#update_barangay_id')
+                        .attr('disabled', 'disabled')
+                        .val(data.barangay)
+                        .change()
                     $('#update_evacuation_center_type_id').val(data.center_type).change()
                     $('#update_max_capacity').val(data.max_capacity)
 
@@ -83,11 +94,18 @@
                     let male_count = data.evacuee.male_count
                     let female_count = data.evacuee.female_count
                     let pwd_count = data.evacuee.pwd_count
+
                     $('[name=family_count]').val(family_count)
                     $('[name=male_count]').val(male_count)
                     $('[name=female_count]').val(female_count)
                     $('[name=pwd_count]').val(pwd_count)
                 })
+            })
+
+            $(document).on('click', '.confirmModalDelete', function (e) {
+                e.preventDefault()
+                let url = $(this).attr('data-url')
+                $('#confirmDelete form').attr('action', url)
             })
 
         })
