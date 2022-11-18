@@ -8,6 +8,10 @@
                     Dashboard
                 </a>
                 @endauth
+                <a class="nav-link" href="{{ route('mdrrmo.centers') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-building"></i></div>
+                    MDRRMO
+                </a>
                 <a class="nav-link collapsed"
                    href="#"
                    data-bs-toggle="collapse"
