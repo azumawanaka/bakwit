@@ -7,13 +7,18 @@ use Illuminate\Http\Request;
 
 class BarangayController extends Controller
 {
-    public function __construct()
-    {
-    }
-
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function fetchLocations()
     {
-        $locations = Barangay::addSelect(['name', 'lat', 'long'])->get();
+        $locations = Barangay::with([
+            'evacuationCenter',
+            'evacuationCenter.evacuationCenterType',
+            'evacuationCenter.evacuee',
+            'evacuationCenter.files',
+            ])
+            ->get();
         return response()->json($locations);
     }
 }

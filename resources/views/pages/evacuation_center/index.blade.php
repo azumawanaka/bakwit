@@ -54,6 +54,15 @@
 
             @include('pages.evacuation_center.tables.brgy-evacuation')
 
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-building me-1"></i>
+                    Barangays Evacuation Centers
+                </div>
+                <div class="card-body">
+                    <div id="map" class="mb-4"></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -65,6 +74,7 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('js/multi-gmap.js') }}"></script>
     <script>
         $(document).ready(function () {
             const hasErrors = "{!! $errors->any() !!}"
