@@ -26,8 +26,12 @@ class UpdateEvacueeRequest extends FormRequest
         $maxCapacity = request()->max_capacity;
         $maleCount = request()->male_count;
         $femaleCount = request()->female_count;
-        $total = $maxCapacity - ($maleCount + $femaleCount);
-
+        $subTotal = $maleCount + $femaleCount;
+        if ($subTotal > $maxCapacity) {
+            $total = $maxCapacity;
+        } else {
+            $total = $maxCapacity - $subTotal;
+        }
         return [
             'female_count' => ['min:'.$total],
             'male_count' => ['min:'.$total],

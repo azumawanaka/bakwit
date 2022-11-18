@@ -40,6 +40,12 @@ class EvacuationCenterService extends Model
                 'evacuee',
                 'files'
             ])
+            ->whereHas('barangay', function ($query) use ($request){
+                $query->where('name', 'like', '%'.$request->keyword.'%');
+            })
+            ->orWhereHas('evacuationCenterType', function ($query) use ($request){
+                $query->where('name', 'like', '%'.$request->keyword.'%');
+            })
             ->orderBy('updated_at', 'desc')
             ->paginate();
     }

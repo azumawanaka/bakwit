@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Evacuee\UpdateEvacueeRequest;
 use App\Models\Barangay;
 use App\Models\EvacuationCenter;
 use App\Models\EvacuationCenterType;
@@ -115,7 +116,7 @@ class EvacuationCenterController extends Controller
         ]);
 
         if ($bdrrmo->evacuee()->count() > 0) {
-            $isFull = ($request->male_count + $request->female_count) == $request->max_capacity ? true : false;
+            $isFull = ($request->male_count + $request->female_count) >= $request->max_capacity ? true : false;
             $bdrrmo->update([
                 'evacuation_center_type_id' => $request->evacuation_center_type_id,
                 'is_evacuation_center_full' => $isFull,
