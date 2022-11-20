@@ -161,5 +161,7 @@
 @section('scripts')
     <script src="{{ asset('js/chart.min.js') }}"></script>
     <script src="{{ asset('js/chart-area-demo.js') }}"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCswO_df1SesOd8uViwi5VkgT2tQ6H6Cto"></script>
+    <script src="{{ asset('js/jquery.googlemap.js') }}"></script>
     <script src="{{ asset('js/multi-gmap.js') }}"></script>
 @endsection

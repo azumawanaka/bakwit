@@ -7,63 +7,50 @@
             <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Dashboard</a></li>
             <li class="breadcrumb-item active">BDRRMO</li>
         </ol>
-
-        <div class="table-responsive">
-            <div class="d-flex justify-content-between">
-                <div class="d-flex gap-2 align-items-center mb-2">
-                    <button type="button"
-                            class="btn btn-md btn-outline-primary"
-                            data-toggle="modal"
-                            data-target="#evacuationCenterModal">
-                        <i class="fas fa-plus"></i> Add Evacuation Center
-                    </button>
-                    <a href="#"
-                       class="btn btn-secondary"
-                       data-toggle="modal"
-                       data-target="#generatePdfModal">
-                        Generate Empty Evacuee List
-                    </a>
-                </div>
-                <form class="d-flex align-items-center">
-                    @if(isset(request()->keyword))
-                    <div class="mr-2">
-                        <a href="{{ route('bdrrmo.index') }}" class="btn btn-sm"><i class="fas fa-refresh"></i></a>
-                    </div>
-                    @endif
-                    <div class="input-group">
-                        <input class="form-control"
-                               type="text"
-                               name="keyword"
-                               placeholder=""
-                               value="{{ request()->keyword }}"
-                               aria-describedby="btnESearch">
-                            <button class="btn btn-primary" id="btnESearch" type="submit"><i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </form>
+        <div class="d-flex justify-content-between">
+            <div class="d-flex gap-2 align-items-center mb-2">
+                <button type="button"
+                        class="btn btn-md btn-outline-primary"
+                        data-toggle="modal"
+                        data-target="#evacuationCenterModal">
+                    <i class="fas fa-plus"></i> Add Evacuation Center
+                </button>
+                <a href="#"
+                   class="btn btn-secondary"
+                   data-toggle="modal"
+                   data-target="#generatePdfModal">
+                    Generate Empty Evacuee List
+                </a>
             </div>
-            @if (session('msg'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Success!</strong> {{ session('msg') }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+            <form class="d-flex align-items-center">
+                @if(isset(request()->keyword))
+                <div class="mr-2">
+                    <a href="{{ route('bdrrmo.index') }}" class="btn btn-sm"><i class="fas fa-refresh"></i></a>
+                </div>
+                @endif
+                <div class="input-group">
+                    <input class="form-control"
+                           type="text"
+                           name="keyword"
+                           placeholder=""
+                           value="{{ request()->keyword }}"
+                           aria-describedby="btnESearch">
+                        <button class="btn btn-primary" id="btnESearch" type="submit"><i class="fas fa-search"></i>
                     </button>
                 </div>
-            @endif
-            <hr/>
-
-            @include('pages.evacuation_center.tables.brgy-evacuation')
-
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-building me-1"></i>
-                    Barangays Evacuation Centers
-                </div>
-                <div class="card-body">
-                    <div id="map" class="mb-4"></div>
-                </div>
-            </div>
+            </form>
         </div>
+        @if (session('msg'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Success!</strong> {{ session('msg') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+        <hr/>
+
+        @include('pages.evacuation_center.tables.brgy-evacuation')
     </div>
 
     @include('pages.evacuation_center.modals.new-evacuation-center')
@@ -74,7 +61,6 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/multi-gmap.js') }}"></script>
     <script>
         $(document).ready(function () {
             const hasErrors = "{!! $errors->any() !!}"

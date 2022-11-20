@@ -47,9 +47,6 @@
     <script src="{{ asset('js/moment.min.js') }}"></script>
     <script src="{{ asset('js/weather.js') }}"></script>
 
-    <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCswO_df1SesOd8uViwi5VkgT2tQ6H6Cto"></script>
-    <script src="{{ asset('js/jquery.googlemap.js') }}"></script>
 @yield('scripts')
 </body>
 </html>
