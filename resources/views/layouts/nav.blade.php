@@ -1,5 +1,5 @@
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark justify-content-between">
-    <div class="d-flex justify-content-between w-14-rem">
+    <div class="d-flex justify-content-between @auth() w-14-rem @endauth">
     <!-- Navbar Brand-->
     <a class="navbar-brand ps-3" href="/">
         <svg class="" width="50" height="50" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; vertical-align: middle;">
@@ -26,7 +26,7 @@
     </ul>
     @else
     <!-- Navbar-->
-    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+    <ul class="navbar-nav align-items-center">
         <li class="nav-item">
             <a href="" class="nav-link text-white">Home</a>
         </li>
