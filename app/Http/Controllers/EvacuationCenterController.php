@@ -40,7 +40,7 @@ class EvacuationCenterController extends Controller
             $barangayIds[] = $brgy->barangay_id;
         }
 
-        $evacuationCenters = $this->evacuationCenterService->centers($request);
+        $evacuationCenters = $this->evacuationCenterService->centers($request)->paginate();
         $barangays = Barangay::whereNotIn('id', $barangayIds)->orderBy('name', 'asc')->get();
         return view('pages.evacuation_center.index', [
             'barangays' => $barangays,

@@ -11728,3 +11728,9 @@ body {
     font-size: 10px;
   }
 }
+
+.scrollable-div {
+  min-height: 400px;
+  max-height: 500px;
+  overflow-y: auto;
+}

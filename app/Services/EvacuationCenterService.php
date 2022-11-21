@@ -30,9 +30,10 @@ class EvacuationCenterService extends Model
     }
 
     /**
-     * @return LengthAwarePaginator
+     * @param $request
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function centers($request): LengthAwarePaginator
+    public function centers($request)
     {
         return $this->model->with([
                 'evacuationCenterType',
@@ -46,7 +47,6 @@ class EvacuationCenterService extends Model
             ->orWhereHas('evacuationCenterType', function ($query) use ($request){
                 $query->where('name', 'like', '%'.$request->keyword.'%');
             })
-            ->orderBy('updated_at', 'desc')
-            ->paginate();
+            ->orderBy('updated_at', 'desc');
     }
 }

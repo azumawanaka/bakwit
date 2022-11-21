@@ -1,9 +1,12 @@
 
 <div class="table-responsive">
-    <div class="rmb-3">
-        Legend:
-        <small><span class="legend bg-danger"></span> Full</small> 
-        <small><span class="legend bg-success"></span> Available</small>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            Legend:
+            <small><span class="legend bg-danger"></span> Full</small> 
+            <small><span class="legend bg-success"></span> Available</small>
+        </div>
+        <a href="{{ route('mdrrmo.generate-report') }}" class="btn btn-sm btn-outline-primary">Generate Report</a>
     </div>
     <table class="table table-dashed table-hover mdrrmo-tbl">
         <thead>

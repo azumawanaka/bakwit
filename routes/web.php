@@ -24,12 +24,18 @@ Auth::routes(['register' => false]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
     ->name('home');
 
+Route::get('/barangays', [App\Http\Controllers\BarangayController::class, 'index'])
+    ->name('barangays.index');
 Route::get('/barangays/all/locations', [App\Http\Controllers\BarangayController::class, 'fetchLocations'])
     ->name('barangays.fetch-locations');
+Route::get('/barangays/{barangay}/open', [App\Http\Controllers\BarangayController::class, 'getBarangay'])
+    ->name('barangays.open');
 
 Route::middleware('auth')->group(function () {
     Route::get('mdrrmo', [\App\Http\Controllers\MdrrmoController::class, 'index'])
         ->name('mdrrmo.centers');
+    Route::get('mdrrmo/generate-report', [\App\Http\Controllers\CsvController::class, 'generateReport'])
+        ->name('mdrrmo.generate-report');
     Route::get('bdrrmo/generate-pdf', [\App\Http\Controllers\PDFController::class, 'generatePDF'])
         ->name('bdrrmo.generate-pdf');
     Route::get('bdrrmo/{bdrrmo}/center', [EvacuationCenterController::class, 'getCenter'])

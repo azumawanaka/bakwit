@@ -19,6 +19,6 @@ class PdfController extends Controller
             'title' => 'Evacuee List',
         ];
         $pdf = PDF::loadView('template-pdf', $data);
-        return $pdf->download('test.pdf');
+        return $pdf->download('evacuee.pdf');
     }
 }

@@ -29,16 +29,8 @@ class MdrrmoController extends Controller
      */
     public function index(Request $request)
     {
-        $barangayIds = [];
-        $storedBarangay = EvacuationCenter::select('barangay_id')->get();
-        foreach ($storedBarangay as $brgy) {
-            $barangayIds[] = $brgy->barangay_id;
-        }
-
-        $evacuationCenters = $this->evacuationCenterService->centers($request);
-        $barangays = Barangay::whereNotIn('id', $barangayIds)->orderBy('name', 'asc')->get();
+        $evacuationCenters = $this->evacuationCenterService->centers($request)->paginate();
         return view('pages.mdrrmo.index', [
-            'barangays' => $barangays,
             'evacuation_center_types' => EvacuationCenterType::all(),
             'evacuationCenters' => $evacuationCenters,
             'allBarangay' => Barangay::orderBy('name', 'asc')->get(),

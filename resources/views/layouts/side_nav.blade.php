@@ -8,6 +8,10 @@
                     Dashboard
                 </a>
                 @endauth
+                <a class="nav-link {{ request()->routeIs('barangays.index*') ? 'active' : '' }}" href="{{ route('barangays.index') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-house"></i></div>
+                    Barangays
+                </a>
                 <a class="nav-link {{ request()->routeIs('mdrrmo.centers*') ? 'active' : '' }}" href="{{ route('mdrrmo.centers') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-building"></i></div>
                     MDRRMO
