@@ -18,7 +18,6 @@ class Calamity extends Model
     ];
 
     public const EARTHQUAKE_INTENSITIES = [
-        'Select intensity of earthquake',
         'I (Scarcely Perceptible)',
         'II (Slightly Felt)',
         'III (Weak)',
@@ -39,5 +38,12 @@ class Calamity extends Model
     protected $fillable = [
         'type',
         'info_arr',
+    ];
+
+    /**
+     * @var string[]
+     */
+    protected $casts = [
+        'info_arr' => 'array',
     ];
 }

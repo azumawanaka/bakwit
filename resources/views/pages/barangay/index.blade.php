@@ -14,7 +14,9 @@
                 @include('pages.barangay.accordions.lists')
             </div>
             <div class="col-md-7">
-                <div id="map" class="mb-4" style="height: 400px;"></div>
+                <div id="map" class="mb-4" style="height: 400px;">
+
+                </div>
             </div>
         </div>
     </div>

@@ -24,6 +24,8 @@ Auth::routes(['register' => false]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
     ->name('home');
 
+Route::get('/gsis', [App\Http\Controllers\GsisController::class, 'index'])
+    ->name('gsis.index');
 Route::get('/barangays', [App\Http\Controllers\BarangayController::class, 'index'])
     ->name('barangays.index');
 Route::get('/barangays/all/locations', [App\Http\Controllers\BarangayController::class, 'fetchLocations'])
@@ -41,4 +43,9 @@ Route::middleware('auth')->group(function () {
     Route::get('bdrrmo/{bdrrmo}/center', [EvacuationCenterController::class, 'getCenter'])
         ->name('bdrrmo.center');
     Route::resource('bdrrmo', EvacuationCenterController::class);
+
+    Route::get('/calamity', [App\Http\Controllers\CalamityController::class, 'index'])
+        ->name('calamity.index');
+    Route::post('/calamity', [App\Http\Controllers\CalamityController::class, 'store'])
+        ->name('calamity.store');
 });

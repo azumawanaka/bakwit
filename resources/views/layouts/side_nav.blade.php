@@ -12,6 +12,14 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-house"></i></div>
                     Barangays
                 </a>
+                <a class="nav-link {{ request()->routeIs('calamity.index*') ? 'active' : '' }}" href="{{ route('calamity.index') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-cloud"></i></div>
+                    Calamity
+                </a>
+                <a class="nav-link {{ request()->routeIs('gsis.index*') ? 'active' : '' }}" href="{{ route('gsis.index') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-map-marker"></i></div>
+                    GSIS
+                </a>
                 <a class="nav-link {{ request()->routeIs('mdrrmo.centers*') ? 'active' : '' }}" href="{{ route('mdrrmo.centers') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-building"></i></div>
                     MDRRMO
