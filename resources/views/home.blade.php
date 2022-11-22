@@ -121,7 +121,7 @@
                         <thead>
                         <tr>
                             <th>Barangay</th>
-                            <th width="240">No. of Evacuees / Capacity</th>
+                            <th>No. of Evacuees / Capacity</th>
                             <th width="100">Males</th>
                             <th width="100">Females</th>
                             <th width="100">PWDs</th>
@@ -131,12 +131,23 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td><span class="legend bg-danger"></span> Anonang</td>
-                            <td>240/9450</td>
-                            <td>120</td>
-                            <td>120</td>
-                            <td>10</td>
+                        @if($evacuationCenters->count() > 0)
+                            @foreach($evacuationCenters as $center)
+                            <tr>
+                            <td><span class="legend bg-{{ $center->is_evacuation_center_full ? 'danger' : 'success' }}"></span>
+                                {{ $center->barangay->name }}
+                            </td>
+                            <td>
+                                @php
+                                    $male_count = isset($center->evacuee) != null ? $center->evacuee->male_count : 0;
+                                    $female_count = isset($center->evacuee) != null ? $center->evacuee->female_count : 0;
+                                    $total = $male_count + $female_count;
+                                @endphp
+                                {{ $total }} / {{ $center->max_capacity }}
+                            </td>
+                            <td>{{ $male_count }}</td>
+                            <td>{{ $female_count }}</td>
+                            <td>{{ isset($center->evacuee) != null ? $center->evacuee->pwd_count : 0 }}</td>
                             @auth()
                                 <td>
                                     <a href="#" class="btn btn-sm btn-secondary">
@@ -151,6 +162,8 @@
                                 </td>
                             @endauth
                         </tr>
+                            @endforeach
+                        @endif
                         </tbody>
                     </table>
                 </div>

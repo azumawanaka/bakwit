@@ -12,7 +12,9 @@ class CalamityController extends Controller
      */
     public function index()
     {
-        return view('pages.calamity.index');
+        return view('pages.calamity.index', [
+            'calamity' => Calamity::first(),
+        ]);
     }
 
     /**

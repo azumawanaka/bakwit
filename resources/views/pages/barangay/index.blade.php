@@ -2,11 +2,14 @@
 
 @section('content')
     <div class="container-fluid px-4">
+        @auth
         <h1 class="mt-4">MDRRMO</h1>
+
         <ol class="breadcrumb mb-5">
             <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Dashboard</a></li>
             <li class="breadcrumb-item active">MDRRMO</li>
         </ol>
+        @endauth
 
         <div class="row">
             <h4 class="mb-3"><i class="fa fa-house"></i> Barangays</h4>
@@ -28,6 +31,9 @@
     <script src="{{ asset('js/jquery.googlemap.js') }}"></script>
     <script>
         $(document).ready(function () {
+            const first_brgy = $('.toggle-barangay:first-child')
+            let url = ''
+
             function BindMarkers(url) {
                 window.axios.get(url).then(response => {
                     let markers = response.data;
@@ -71,10 +77,18 @@
                     })(marker, data);
                 })
             }
+
+            function openFirstBarangayByDefault() {
+                first_brgy.click()
+                url = first_brgy.attr('data-url')
+                BindMarkers(url)
+            }
+
+            openFirstBarangayByDefault()
+
             $(document).on('click', '.toggle-barangay', function(e) {
-                let url = $(this).attr('data-url')
-                BindMarkers(url);
-                // setInterval(function () { BindMarkers() }, 3000);
+                url = $(this).attr('data-url')
+                BindMarkers(url)
             })
         })
     </script>

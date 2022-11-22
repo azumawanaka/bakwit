@@ -15,9 +15,8 @@ use App\Http\Controllers\EvacuationCenterController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])
+    ->name('home');
 
 Auth::routes();
 Auth::routes(['register' => false]);
@@ -32,6 +31,8 @@ Route::get('/barangays/all/locations', [App\Http\Controllers\BarangayController:
     ->name('barangays.fetch-locations');
 Route::get('/barangays/{barangay}/open', [App\Http\Controllers\BarangayController::class, 'getBarangay'])
     ->name('barangays.open');
+Route::get('/calamity', [App\Http\Controllers\CalamityController::class, 'index'])
+    ->name('calamity.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('mdrrmo', [\App\Http\Controllers\MdrrmoController::class, 'index'])
@@ -44,8 +45,6 @@ Route::middleware('auth')->group(function () {
         ->name('bdrrmo.center');
     Route::resource('bdrrmo', EvacuationCenterController::class);
 
-    Route::get('/calamity', [App\Http\Controllers\CalamityController::class, 'index'])
-        ->name('calamity.index');
     Route::post('/calamity', [App\Http\Controllers\CalamityController::class, 'store'])
         ->name('calamity.store');
 });

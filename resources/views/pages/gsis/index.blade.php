@@ -1,14 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid px-4">
-        <h1 class="mt-4"> GeoInformation System</h1>
+    <div class="container-fluid px-4 pb-5">
+        <h1 class="mt-4 @guest mb-5 @endguest"> GeoInformation System</h1>
+        @auth()
         <ol class="breadcrumb mb-5">
             <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Dashboard</a></li>
             <li class="breadcrumb-item active"> GeoInformation System</li>
         </ol>
+        @endauth
 
-        <div id="map"></div>
+        <div id="map" style="height: 450px;"></div>
     </div>
 @endsection
 

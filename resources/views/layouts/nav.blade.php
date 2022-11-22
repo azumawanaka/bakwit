@@ -27,17 +27,15 @@
     @else
     <!-- Navbar-->
     <ul class="navbar-nav align-items-center">
-        <li class="nav-item">
-            <a href="" class="nav-link text-white">Home</a>
+        <li class="nav-item {{ request()->routeIs('barangays.index*') ? 'active' : '' }}">
+            <a href="{{ route('barangays.index') }}" class="nav-link">Barangays</a>
         </li>
         <li class="nav-item">
-            <a href="" class="nav-link">Barangays</a>
+            <a href="{{ route('calamity.index') }}"
+               class="nav-link {{ request()->routeIs('calamity.index') ? 'active' : '' }}">Calamity</a>
         </li>
         <li class="nav-item">
-            <a href="" class="nav-link">Calamity</a>
-        </li>
-        <li class="nav-item">
-            <a href="" class="nav-link">GIS</a>
+            <a href="{{ route('gsis.index') }}" class="nav-link {{ request()->routeIs('gsis.index') ? 'active' : '' }}">GIS</a>
         </li>
     </ul>
     @endauth

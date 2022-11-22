@@ -2,27 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\EvacuationCenterService;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * @var EvacuationCenterService
      */
-    public function __construct()
+    private $evacuationCenterService;
+
+    /**
+     * @param EvacuationCenterService $evacuationCenterService
+     */
+    public function __construct(EvacuationCenterService $evacuationCenterService)
     {
-        $this->middleware('auth');
+        $this->evacuationCenterService = $evacuationCenterService;
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
+        $evacuationCenters = $this->evacuationCenterService->centers($request)->paginate();
+        return view('home', [
+            'evacuationCenters' => $evacuationCenters,
+        ]);
     }
 }
