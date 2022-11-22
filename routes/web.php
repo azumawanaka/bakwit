@@ -43,8 +43,11 @@ Route::middleware('auth')->group(function () {
         ->name('bdrrmo.generate-pdf');
     Route::get('bdrrmo/{bdrrmo}/center', [EvacuationCenterController::class, 'getCenter'])
         ->name('bdrrmo.center');
-    Route::resource('bdrrmo', EvacuationCenterController::class);
 
     Route::post('/calamity', [App\Http\Controllers\CalamityController::class, 'store'])
         ->name('calamity.store');
+
+    Route::middleware('super_admin')->group(function () {
+        Route::resource('bdrrmo', EvacuationCenterController::class);
+    });
 });

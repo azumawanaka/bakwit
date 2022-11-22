@@ -24,17 +24,19 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-building"></i></div>
                     MDRRMO
                 </a>
-                <a class="nav-link {{ request()->routeIs('bdrrmo.index*') ? '' : 'collapsed' }}"
-                   href="#"
-                   data-bs-toggle="collapse"
-                   data-bs-target="#collapseBdrrmo"
-                   aria-expanded="{{ request()->routeIs('bdrrmo.index*') ? true : false }}"
-                   aria-controls="collapseLayouts">
-                    <div class="sb-nav-link-icon"><i class="fas fa-city"></i></div>
-                    BDRRMO
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div class="collapse {{ request()->routeIs('bdrrmo.index*') ? 'show' : '' }}"
+
+                @if(auth()->user()->type === 1)
+                    <a class="nav-link {{ request()->routeIs('bdrrmo.index*') ? '' : 'collapsed' }}"
+                       href="#"
+                       data-bs-toggle="collapse"
+                       data-bs-target="#collapseBdrrmo"
+                       aria-expanded="{{ request()->routeIs('bdrrmo.index*') ? true : false }}"
+                       aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-city"></i></div>
+                        BDRRMO
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse {{ request()->routeIs('bdrrmo.index*') ? 'show' : '' }}"
                      id="collapseBdrrmo"
                      aria-labelledby="headingOne"
                      data-bs-parent="#sidenavAccordion">
@@ -42,6 +44,7 @@
                         <a class="nav-link {{ request()->routeIs('bdrrmo.index*') ? 'active' : '' }}" href="{{ route('bdrrmo.index') }}">Evacuation Centers</a>
                     </nav>
                 </div>
+                @endif
             </div>
         </div>
         <div class="sb-sidenav-footer">

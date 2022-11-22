@@ -113,7 +113,7 @@
                             <small><span class="legend bg-success"></span> Available</small>
                         </div>
                         @auth()
-                            <a href="#" class="btn btn-outline-secondary btn-sm">Generate Report</a>
+                            <a href="{{ route('mdrrmo.generate-report') }}" class="btn btn-outline-secondary btn-sm">Generate Report</a>
                         @endauth
                     </div>
                     <hr />
@@ -125,9 +125,6 @@
                             <th width="100">Males</th>
                             <th width="100">Females</th>
                             <th width="100">PWDs</th>
-                            @auth()
-                                <th width="130"></th>
-                            @endauth
                         </tr>
                         </thead>
                         <tbody>
@@ -148,19 +145,6 @@
                             <td>{{ $male_count }}</td>
                             <td>{{ $female_count }}</td>
                             <td>{{ isset($center->evacuee) != null ? $center->evacuee->pwd_count : 0 }}</td>
-                            @auth()
-                                <td>
-                                    <a href="#" class="btn btn-sm btn-secondary">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-sm btn-success text-white">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-sm btn-danger text-white">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </td>
-                            @endauth
                         </tr>
                             @endforeach
                         @endif

@@ -38,9 +38,6 @@
                     <td>
                         <span class="legend bg-{{ $center->is_evacuation_center_full ? 'danger' : 'success' }}"></span></td>
                     <td>
-                        <a href="#" class="btn btn-sm btn-outline-primary">
-                            <i class="fas fa-eye"></i>
-                        </a>
                         <a href="#" class="btn btn-sm btn-outline-success edit-evacuation-center"
                            data-center="{{ $center->id }}"
                            data-get-url="{{ route('bdrrmo.center', ['bdrrmo' => $center]) }}"
