@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         // MDRRMO - super admin
          User::factory()->create([
              'name' => 'Super Admin',
-             'email' => 'super_admin@test.com',
+             'email' => 'mdrrmo@bakwit.com',
              'password' => Hash::make('password'),
              'type' => 1,
          ]);
@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
          // Brgy - admin
         User::factory()->create([
             'name' => 'Admin',
-            'email' => 'admin@test.com',
+            'email' => 'barangay@bakwit.com',
             'password' => Hash::make('password'),
         ]);
     }
