@@ -116,7 +116,8 @@ class EvacuationCenterController extends Controller
         ]);
 
         if ($bdrrmo->evacuee()->count() > 0) {
-            $isFull = ($request->male_count + $request->female_count) >= $request->max_capacity ? true : false;
+            $subTotal = intval($request->male_count) + intval($request->female_count);
+            $isFull = $subTotal >= intval($request->max_capacity) ? true : false;
             $bdrrmo->update([
                 'evacuation_center_type_id' => $request->evacuation_center_type_id,
                 'is_evacuation_center_full' => $isFull,
